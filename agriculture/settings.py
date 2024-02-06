@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-c&y=7d7l+ifml)=@e_!2#2a0w01zism2^^#%0-@#qi4y@e%m2s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.127.34','192.168.13.34','192.168.65.34','10.0.2.2','127.0.0.1']
 
 
 # Application definition
@@ -38,20 +38,28 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'news',
+    'authen',
     'corsheaders',
     'rest_framework',
 ]
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CSRF_COOKIE_SECURE = False
 
 ROOT_URLCONF = 'agriculture.urls'
 
