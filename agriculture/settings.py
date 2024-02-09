@@ -12,8 +12,21 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+
+import environ                          #envvariable addition
+import os                               #envvariable addition
+env = environ.Env(                      #envvariable addition
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))    #envvariable addition
+WEATHER_APIKEY = env('WEATHER_APIKEY')                  #envvariable last addition and uncomment DEBUG variable below
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,7 +36,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-c&y=7d7l+ifml)=@e_!2#2a0w01zism2^^#%0-@#qi4y@e%m2s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.127.34','192.168.13.34','192.168.65.34','10.0.2.2','127.0.0.1']
 
@@ -37,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'news',
+    'thirdParties',
     'authen',
     'corsheaders',
     'rest_framework',
