@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 
 class CustomUser(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    profile_photo = models.TextField(max_length=200)
-    nick_name = models.TextField(max_length=60)
+    profilePhoto = models.TextField(max_length=200)
+    nickName = models.TextField(max_length=60)
     place = models.TextField(max_length=200,default="kozhikode")
 
     def __str__(self):
@@ -13,12 +13,35 @@ class CustomUser(models.Model):
 
 class Crop(models.Model):
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
-    crop_name = models.CharField(max_length=50)
-    crop_stage =models.TextField(max_length=50)
-    crop_area =models.TextField(max_length=50)
+    name = models.CharField(max_length=50)
+    stage =models.TextField(max_length=50)
+    area =models.TextField(max_length=50)
+    grown = models.CharField(max_length=20,null=True, blank=True)
+    def __str__(self):
+        return self.name
+    
+
+#new tables
+class CropSensorData(models.Model):
+    crop = models.ForeignKey(Crop, on_delete=models.CASCADE)
+    condition = models.CharField(max_length=20, default = 'normal')
+    ph = models.FloatField()
+    phStatus = models.CharField(max_length=20, default = 'optimal')
+    nitrogen = models.SmallIntegerField()
+    phosphorous = models.SmallIntegerField()
+    potassium = models.SmallIntegerField()
 
     def __str__(self):
-        return self.crop_name
+        return f"Crop: {self.crop}, pH: {self.ph}"
+
+class CropSchedule(models.Model):
+    crop = models.ForeignKey(Crop, on_delete=models.CASCADE)
+    activity = models.CharField(max_length=25)
+    description = models.TextField(max_length=100,null=True, blank=True)
+    time = models.DateTimeField()
+
+    def __str__(self):
+        return f"Crop: {self.crop}, Activity: {self.activity}"
 
 
 
